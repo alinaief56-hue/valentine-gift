@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>رسالتك الخاصة</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a0dad, #ff85b3); /* أرجواني × وردي */
+}
+
+.box {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 22px;
+    padding: 45px 40px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: scale(1); }
+}
+
+h2 { 
+    font-weight: 600; 
+    margin-bottom: 10px;
+    color: #ffd700; /* لمسة ذهبية */
+    text-shadow: 0 0 6px #fff;
+}
+
+p { 
+    font-size: 14px; 
+    color: #fff;
+}
+
+input {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255,255,255,0.2);
+    color: #111;
+    font-size: 15px;
+    text-align: center;
+    outline: none;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #ff4d88, #ff85b3);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 12px #ff85b3;
+}
+
+#error {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ff6a6a;
+}
+
+#hint {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #ffb6c1;
+}
+
+#content {
+    display: none;
+    margin-top: 25px;
+}
+
+#typewriter {
+    font-size: 16px;
+    color: #fff;
+    min-height: 50px;
+    white-space: pre-wrap;
+}
+
+/* قلوب متحركة */
+.heart {
+    position: absolute;
+    bottom: -10px;
+    color: #ff4d88;
+    font-size: 20px;
+    animation: rise 6s linear forwards;
+    opacity: 0.8;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-800px) scale(1.6); opacity: 0; }
+}
+
+/* أضواء صغيرة متوهجة */
+.light {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff4b1;
+    opacity: 0.7;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity:0.7;}
+    50% { transform: translateY(-500px) translateX(50px) scale(1.5); opacity:0.4;}
+    100% { transform: translateY(-1000px) translateX(-50px) scale(1); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- أضواء متوهجة -->
+<div class="light" style="left:10vw; animation-delay:0s;"></div>
+<div class="light" style="left:50vw; animation-delay:2s;"></div>
+<div class="light" style="left:80vw; animation-delay:4s;"></div>
+<div class="light" style="left:30vw; animation-delay:1s;"></div>
+<div class="light" style="left:70vw; animation-delay:3s;"></div>
+
+<div class="box">
+    <h2> 𝓡𝓪𝓰𝓱𝓪𝓭 💖 </h2>
+    <p>دخلي الكلمة اللي وصيتك فيها </p>
+
+  
+    <input type="password" id="pass" placeholder=" كلمة السر  ">
+    <button onclick="openMsg()">دخول</button>
+
+    <div id="error"></div>
+    <div id="hint"></div>
+
+    <div id="content">
+        <div id="typewriter"></div>
+        <a id="pdfLink" href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#ff4d88;color:white;border-radius:12px;text-decoration:none;font-weight:600;transition:0.3s;">📄 فتح الرسالة</a>
+    </div>
+</div>
+
+<script>
+const message = `أرحبيييييي يا نظر عينييييي 
+أول شي زوط 
+ثاني شي الصدق أشتقت لك
+14Februaryوبمناسبة
+حبيت أسوي كل ذا عشان أحاول
+أعبر لو شوي اللي داخلي تجاهك
+
+وهذا 👇🏼 ملف فيه شي اتمنى يعجبك 
+`;
+
+  
+  
+function openMsg() {
+    const correct = "طماطم";
+    const value = document.getElementById("pass").value;
+
+    if(value === correct){
+        document.getElementById("content").style.display = "block";
+        document.getElementById("error").innerHTML = "";
+        document.getElementById("hint").innerHTML = "";
+        createHearts();
+        typeWriter(message, 0);
+    } else {
+        document.getElementById("error").innerHTML = "  جرّبي مرة ثانية";
+        document.getElementById("hint").innerHTML = "تلميح: أنا أبيك تكوني : ط  ";
+    }
+}
+
+function createHearts(){
+    for(let i=0;i<40;i++){
+        const h = document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤";
+        h.style.left = Math.random()*100 + "vw";
+        h.style.fontSize = (16 + Math.random()*22) + "px";
+        document.body.appendChild(h);
+        setTimeout(()=>{h.remove();},6000);
+    }
+}
+
+function typeWriter(text, i) {
+    if(i < text.length){
+        document.getElementById("typewriter").innerHTML += text.charAt(i);
+        setTimeout(()=> typeWriter(text, i+1), 40);
+    }
+}
+</script>
+
+</body>
+</html>
